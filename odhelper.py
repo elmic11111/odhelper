@@ -41,12 +41,15 @@ async def on_message(message):
         msg += "\t\t/rw #[NUMBER_OF_DICE] [OPTIONS]\n"
         msg += "\t\tOptions:\n"
         msg += "\t\t\tdiff[DIFFICULTY] - Change the Default Difficulty of 6 to something else\n"
+        msg += "\t\t\tdif[DIFFICULTY] - Change the Default Difficulty of 6 to something else (One F version)\n"
         msg += "\t\t\tspec - Sepcialization effects roll causing 10s to be double Successes\n"
         msg += "\t\t\tno1 - Set the system to not subtract ones\n"
         msg += "\t\t\t| [Comment] - Anything after the | is added as a comment\n"
         msg += "\tExample:\n"
+        msg += "\t\t/rw #5 - Roll Five dice with a Difficulty 6\n"
         msg += "\t\t/rw #5 diff6 - Roll Five dice with a Difficulty 6\n"
         msg += "\t\t/rw #5 diff6 spec - Roll Five dice with a Difficulty 6 with Specializations\n"
+        msg += "\t\t/rw #5 diff6 no1 - Roll Five dice with a Difficulty 6 but don't subtracted 1s\n"
         await channel.send(msg)
     elif content.startswith("/rw "):
         msg = standard_roll(channel=channel,username=username,content=content)
@@ -71,7 +74,7 @@ def standard_roll(channel=None,username=None,content=None):
     if m:
         num_of_dice = int(m.group('dice'))
 
-    m = re.search("diff(?P<dif>\d+)",content, re.IGNORECASE)
+    m = re.search("dif(f|)(?P<dif>\d+)",content, re.IGNORECASE)
     if m:
         difficulty = int(m.group('dif'))
 
